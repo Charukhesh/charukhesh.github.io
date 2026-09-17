@@ -10,7 +10,9 @@ export default function Footer() {
           <div className="mb-1 text-lg text-[#f2f4f6]">Charukhesh B R</div>
           <div className="mb-2 font-mono text-sm text-ink-dim">IIT Madras</div>
           <a 
-            href="mailto:ae22b028@smail.iitm.ac.in" 
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=ae22b028@smail.iitm.ac.in" 
+            target="_blank" 
+            rel="noopener noreferrer" 
             className="font-mono text-sm text-accent transition-colors hover:text-[#f2f4f6]"
           >
             ae22b028@smail.iitm.ac.in

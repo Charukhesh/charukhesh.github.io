@@ -38,7 +38,14 @@ export default function HomePage() {
                 <Link href="/projects" className="whitespace-nowrap rounded-full border border-accent bg-accent px-4 py-2.5 font-mono text-[11px] tracking-wide text-bg transition-colors hover:bg-transparent hover:text-accent sm:px-5 sm:text-xs">
                   VIEW PROJECTS →
                 </Link>
-                <a href="mailto:ae22b028@smail.iitm.ac.in" className="whitespace-nowrap rounded-full border border-border px-4 py-2.5 font-mono text-[11px] tracking-wide text-[#f2f4f6] hover:border-accent hover:text-accent sm:px-5 sm:text-xs">EMAIL</a>
+                <a 
+                  href="https://mail.google.com/mail/?view=cm&fs=1&to=ae22b028@smail.iitm.ac.in" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="whitespace-nowrap rounded-full border border-border px-4 py-3 font-mono text-xs tracking-wide text-[#f2f4f6] hover:border-accent hover:text-accent sm:px-5 sm:text-sm"
+                >
+                  EMAIL
+                </a>
                 <a href={profile.links.github} target="_blank" rel="noopener noreferrer" className="whitespace-nowrap rounded-full border border-border px-4 py-2.5 font-mono text-[11px] tracking-wide text-ink-dim hover:border-accent hover:text-accent sm:px-5 sm:text-xs">GITHUB</a>
                 <a href={profile.links.researchGate} target="_blank" rel="noopener noreferrer" className="whitespace-nowrap rounded-full border border-border px-4 py-2.5 font-mono text-[11px] tracking-wide text-ink-dim hover:border-accent hover:text-accent sm:px-5 sm:text-xs">RESEARCH GATE</a>
                 <a href={profile.links.linkedin} target="_blank" rel="noopener noreferrer" className="whitespace-nowrap rounded-full border border-border px-4 py-2.5 font-mono text-[11px] tracking-wide text-ink-dim hover:border-accent hover:text-accent sm:px-5 sm:text-xs">LINKEDIN</a>
