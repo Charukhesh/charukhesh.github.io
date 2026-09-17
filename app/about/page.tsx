@@ -125,7 +125,7 @@ export default function AboutPage() {
             
             {/* Download Button targets the PDF in the public folder */}
             <a 
-              href="/cv.pdf" 
+              href="/Charukhesh_CV.pdf" 
               download="Charukhesh_BR_CV.pdf"
               className="group inline-flex items-center gap-3 rounded-full border border-accent bg-accent/10 px-6 py-3 font-mono text-sm tracking-wide text-accent transition-all hover:bg-accent hover:text-bg"
             >
@@ -137,7 +137,7 @@ export default function AboutPage() {
           {/* Native PDF Embed Viewer */}
           <div className="h-[600px] w-full overflow-hidden rounded-2xl border border-border-soft bg-[#12161a] sm:h-[800px]">
             <iframe 
-              src="/cv.pdf" 
+              src="/Charukhesh_CV.pdf" 
               className="h-full w-full border-none"
               title="Charukhesh B R Resume"
             />
