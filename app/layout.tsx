@@ -1,8 +1,9 @@
-import type { Metadata } from "next";
 import "./globals.css";
+import type { Metadata } from "next";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
-import Loader from "@/components/Loader";
+import BackgroundFlow from "@/components/BackgroundFlow"; // 👈 Import the new component
+import CanvasFlowField from "@/components/BackgroundFlow";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://charukhesh.github.io/Charukhesh_Portfolio"),
@@ -30,11 +31,18 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en">
-      <body className="bg-bg font-sans text-[16.5px] leading-relaxed text-ink antialiased">
-        <Loader />
+    <html lang="en" className="scroll-smooth">
+      <body className="bg-bg text-ink antialiased selection:bg-accent/30 selection:text-accent">
+        
+        {/* 👉 ADD THE BACKGROUND SIMULATION HERE 👈 */}
+        <BackgroundFlow/>
+
         <Nav />
         {children}
         <Footer />

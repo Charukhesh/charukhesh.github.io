@@ -207,10 +207,9 @@ export default function ResearchMap() {
 
   return (
     <div className="relative">
-      {/* Container modernized to fit the dark theme */}
       <div className="relative aspect-[16/11] w-full overflow-hidden rounded-2xl border border-border-soft bg-panel sm:aspect-[16/9]">
         
-        {/* Background Grid Pattern for extra technical feel */}
+        {/* Background Grid Pattern */}
         <div 
           className="absolute inset-0 opacity-[0.03]" 
           style={{ backgroundImage: 'linear-gradient(#f2f4f6 1px, transparent 1px), linear-gradient(90deg, #f2f4f6 1px, transparent 1px)', backgroundSize: '40px 40px' }}
@@ -224,7 +223,6 @@ export default function ResearchMap() {
         >
           {edges.map(([a, b], i) => {
             const active = isEdgeActive(a, b);
-            // Draw line in the color of the hovered node
             const strokeColor = active ? hoveredNode?.color : "#2a303c"; 
             
             return (
@@ -260,17 +258,18 @@ export default function ResearchMap() {
               style={{
                 left: `${n.x}%`,
                 top: `${n.y}%`,
-                // Apply custom neon glow when active
                 boxShadow: isActive ? `0 0 20px ${n.color}40` : "none",
                 borderColor: isActive ? n.color : isDimmed ? "#1e2329" : "#3a4048",
                 backgroundColor: isActive ? `${n.color}15` : "#12161a",
-                color: isActive ? n.color : isDimmed ? "#475569" : "#aeb6c0",
+                color: isActive ? n.color : isDimmed ? "#475569" : "#f2f4f6", // Made default text brighter white
               }}
-              className={`absolute flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 whitespace-nowrap rounded-full border px-3 py-2 font-mono text-[10px] tracking-wide transition-all duration-300 sm:px-4 sm:py-2.5 sm:text-[11px] ${
+              // 👉 SCALED UP TEXT HERE (text-xs sm:text-sm) and PADDING
+              className={`absolute flex -translate-x-1/2 -translate-y-1/2 items-center gap-2.5 whitespace-nowrap rounded-full border px-4 py-2 font-mono text-xs tracking-wide transition-all duration-300 sm:px-5 sm:py-3 sm:text-sm ${
                 isDimmed ? "opacity-30" : "opacity-100 z-10"
               }`}
             >
-              <Icon size={14} className={isActive ? "animate-pulse" : ""} />
+              {/* Scaled Icon from 14 -> 16 */}
+              <Icon size={16} className={isActive ? "animate-pulse" : ""} />
               {n.label}
             </button>
           );
@@ -278,11 +277,12 @@ export default function ResearchMap() {
       </div>
 
       {/* Linked project information */}
-      <div className="mt-5 min-h-[2.5rem] rounded-lg border border-border-soft bg-panel px-4 py-3 font-mono text-[12px] text-ink-dim sm:text-[13px]">
+      {/* 👉 SCALED UP LEGEND TEXT HERE (text-sm sm:text-base) */}
+      <div className="mt-5 min-h-[3rem] rounded-xl border border-border-soft bg-panel px-5 py-4 font-mono text-sm text-ink-dim sm:text-base">
         {hoveredNode && hoveredNode.projects.length > 0 ? (
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2.5">
             <span style={{ color: hoveredNode.color }} className="font-semibold">
-              <hoveredNode.icon size={14} className="inline mr-1.5 pb-0.5" />
+              <hoveredNode.icon size={18} className="inline mr-1.5 pb-0.5" />
               {hoveredNode.label} WORK →
             </span>
             {hoveredNode.projects.map((proj, idx) => (
@@ -295,8 +295,8 @@ export default function ResearchMap() {
             ))}
           </div>
         ) : (
-          <span className="text-muted flex items-center gap-2">
-            <Sparkles size={14} /> Hover over a research node to explore connected implementations and projects.
+          <span className="text-muted flex items-center gap-2.5">
+            <Sparkles size={16} /> Hover over a research node to explore connected implementations and projects.
           </span>
         )}
       </div>

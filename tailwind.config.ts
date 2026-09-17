@@ -21,9 +21,9 @@ const config: Config = {
         accent2: "#ef4444",        // Red
       },
       fontFamily: {
-        sans: ["Calibri", "Segoe UI", "Arial", "sans-serif"],
-        display: ["Calibri", "Segoe UI", "Arial", "sans-serif"],
-        mono: ["IBM Plex Mono", "ui-monospace", "SFMono-Regular", "monospace"],
+        sans: ["var(--font-inter)", "sans-serif"],
+        display: ["var(--font-inter)", "sans-serif"],
+        mono: ["var(--font-jetbrains)", "monospace"],
       },
       maxWidth: {
         content: "920px",

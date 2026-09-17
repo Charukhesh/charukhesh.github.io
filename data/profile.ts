@@ -21,17 +21,51 @@ export const profile = {
     { label: "Probabilistic Modeling", active: false },
     { label: "AI for Engineering", active: false }
   ],
-  education: [
+  education: {
+    institution: "Indian Institute of Technology Madras",
+    period: "'22 – '27",
+    degree: "B.Tech in Aerospace Engineering & Interdisciplinary M.Tech in AI and Data Science",
+    cgpa: "9.14 / 10.00"
+  },
+  skills: {
+    languages: ["Python", "C++", "Bash", "MATLAB"],
+    frameworks: ["PyTorch", "TorchRL", "TensorFlow", "ROS 1 / ROS 2", "OpenCV", "AirSim", "MuJoCo", "PyBullet", "RoboCasa", "Robomimic"]
+  },
+  courses: [
+    "Math Foundations of Data Science",
+    "Foundation of Machine Learning",
+    "Data Analytics Laboratory",
+    "Machine Learning Operations Lab",
+    "Introduction to Deep Learning",
+    "Data-Science & AI in Finance",
+    "Adaptive Signal Processing",
+    "Robot Control",
+    "Introduction to Scientific Computing",
+    "Data-Driven Modeling of Complex Aerospace Systems & Fluid Flows",
+    "Principles of Guidance for Autonomous Vehicles"
+  ],
+  teaching: [
     {
-      degree: "B.Tech Aerospace Engineering + Interdisciplanary M.Tech Data Science, IIT Madras",
+      course: "Mathematical Foundations of Data Science",
+      program: "Data-Science & AI",
+      professor: "Prof. Gitakrishnan R & Prof. Nandan S",
+      status: "Ongoing",
+      description: "Conducting tutorials for students and assisting with assignment design, evaluation and question development for exams."
     },
+    {
+      course: "Artificial Intelligence in Predictive Maintenance",
+      program: "Online M.Tech",
+      professor: "Prof. Kallol R",
+      status: "Completed",
+      description: "Conducted tutorials and designed exams on system identification, stochastic processes & state estimation in predictive maintenance of systems."
+    }
   ],
   achievements: [
-    "Secured 2nd runner-up nationwide in the 2024 James Dyson Challenge by building a 5-stage UV filtration bottle with kinetic charging",
-    "Selected for highly competitive international research internship programs: NUS1 IRIS (Top 1%) and Purdue SURF (Top 3%) globally",
-    "Co-founded IIT Madras’ SUAS team and led autonomous systems development, ranking 8th out of 70 international teams in SUAS2 2025  ",
-    "Developed and deployed drone-based Computer Vision systems for real-time reconnaissance missions with the Indian Army - J&K Rifles",
-    "Ranked Top 2% (of 1500 teams) at the 2025 Caterpillar Tech Challenge for developing an ML-based PID gain tuning system"
+    "Secured 2nd runner-up nationwide in the 2024 James Dyson Challenge by building a 5-stage UV filtration bottle with kinetic charging.",
+    "Developed and deployed drone-based Computer Vision systems for real-time reconnaissance missions with the Indian Army - J&K Rifles.",
+    "Co-founded IIT Madras' SUAS team and led autonomous systems development, ranking 8th out of 70 international teams in SUAS 2025.",
+    "Ranked Top 2% (of 1500 teams) at the 2025 Caterpillar Tech Challenge for developing an ML-based PID gain tuning system.",
+    "Selected for highly competitive international research internship programs: NUS IRIS (Top 1%) and Purdue SURF (Top 3%) globally."
   ],
   positions: [
     "Co-founder, SUAS — IIT Madras' unmanned autonomous vehicle development team",

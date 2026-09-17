@@ -21,55 +21,164 @@ const drawVariant = {
 </defs>
 
 function FlowLatentMPCViz() {
+  const drawVariant = {
+    hidden: { pathLength: 0, opacity: 0 },
+    visible: { pathLength: 1, opacity: 1 },
+  };
+
+  const fadeVariant = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+  };
+
   return (
-    <svg viewBox="0 0 480 300" className="h-full w-full">
+    <svg viewBox="0 0 540 320" className="h-full w-full" style={{ background: "transparent" }}>
+      {/* GLOW FILTERS */}
+      <defs>
+        <filter id="glow-gold" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="4" result="blur" />
+          <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        </filter>
+        <filter id="glow-teal" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="4" result="blur" />
+          <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        </filter>
+      </defs>
+
+      {/* BACKGROUND GRID */}
       <g stroke="#1c212a" strokeWidth={1}>
-        {[0, 60, 120, 180, 240].map((y) => (
-          <line key={y} x1="0" y1={y + 20} x2="480" y2={y + 20} />
+        {[0, 40, 80, 120, 160, 200, 240, 280, 320].map((y) => (
+          <line key={`h-${y}`} x1="0" y1={y} x2="540" y2={y} />
+        ))}
+        {[0, 60, 120, 180, 240, 300, 360, 420, 480, 540].map((x) => (
+          <line key={`v-${x}`} x1={x} y1="0" x2={x} y2="320" />
         ))}
       </g>
-      {/* candidate (unselected) trajectories */}
+
+      {/* PIPELINE ARCHITECTURE (Left Side) */}
+      {/* 1. Observation Image */}
+      <motion.rect x="20" y="135" width="30" height="30" rx="4" fill="none" stroke="#767f8b" strokeWidth={1.5} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeVariant} transition={{ delay: 0.1 }} />
+      <motion.circle cx="35" cy="150" r="6" fill="none" stroke="#767f8b" strokeWidth={1.5} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeVariant} transition={{ delay: 0.1 }} />
+      <text x="35" y="180" textAnchor="middle" fontFamily="IBM Plex Mono" fontSize="10" fill="#767f8b">O_t</text>
+
+      {/* 2. V-JEPA Encoder */}
+      <motion.path d="M 55 150 L 85 150" stroke="#3a4048" strokeWidth={1.5} strokeDasharray="3 3" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={drawVariant} transition={{ delay: 0.3 }} />
+      <motion.rect x="85" y="130" width="40" height="40" rx="6" fill="#1e2329" stroke="#5fb8b0" strokeWidth={1.5} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeVariant} transition={{ delay: 0.5 }} />
+      <text x="105" y="154" textAnchor="middle" fontFamily="IBM Plex Mono" fontSize="12" fill="#5fb8b0">E_ψ</text>
+
+      {/* 3. Initial Latent State z_t */}
+      <motion.path d="M 125 150 L 155 150" stroke="#3a4048" strokeWidth={1.5} strokeDasharray="3 3" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={drawVariant} transition={{ delay: 0.7 }} />
+      <motion.circle cx="165" cy="150" r="8" fill="#5fb8b0" filter="url(#glow-teal)" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeVariant} transition={{ delay: 0.9 }} />
+      <text x="165" y="172" textAnchor="middle" fontFamily="IBM Plex Mono" fontSize="10" fill="#5fb8b0">z_t</text>
+
+      {/* LATENT GOAL (Right Side) */}
+      <motion.circle cx="480" cy="150" r="8" fill="none" stroke="#d7a24a" strokeWidth={2} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeVariant} transition={{ delay: 0.9 }} />
+      <motion.circle cx="480" cy="150" r="16" fill="none" stroke="#d7a24a" strokeWidth={1} strokeDasharray="2 4" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeVariant} transition={{ delay: 0.9 }} />
+      <text x="480" y="176" textAnchor="middle" fontFamily="IBM Plex Mono" fontSize="11" fill="#d7a24a">z_goal</text>
+
+      {/* FLOW MATCHING: 16 CANDIDATE ROLLOUTS */}
+      {/* We draw 7 visually distinct bezier curves to represent the N=16 batch */}
       {[
-        "M40,250 C110,220 140,150 190,130 S260,80 320,55",
-        "M40,250 C90,230 130,190 180,170 S280,110 330,90",
-        "M40,250 C100,240 120,200 170,190 S250,140 300,120"
+        "M165,150 C240,60  340,60  440,75",
+        "M165,150 C230,100 320,80  420,100",
+        "M165,150 C260,130 360,110 460,115",
+        "M165,150 C240,200 340,240 430,220",
+        "M165,150 C260,250 350,280 440,260",
+        "M165,150 C220,180 300,210 400,190"
       ].map((d, i) => (
+        <g key={i}>
+          {/* Rollout trajectory */}
+          <motion.path
+            d={d}
+            fill="none"
+            stroke="#3a4048"
+            strokeWidth={1.5}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={drawVariant}
+            transition={{ duration: 1.2, delay: 1.2 + i * 0.1 }}
+          />
+          {/* V-JEPA Distance Evaluation (Cost J) - Dashed line to goal */}
+          <motion.path
+            d={`M${d.slice(-7)} L480,150`}
+            fill="none"
+            stroke="#ef4444" // Red error line
+            strokeWidth={1}
+            strokeDasharray="2 3"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={drawVariant}
+            transition={{ duration: 0.5, delay: 2.5 + i * 0.05 }}
+          />
+        </g>
+      ))}
+
+      {/* OPTIMAL TRAJECTORY (Selected by V-JEPA) */}
+      <g>
+        {/* The thick gold curve */}
         <motion.path
-          key={i}
-          d={d}
+          d="M165,150 C260,160 360,130 472,148"
           fill="none"
-          stroke="#3a4048"
-          strokeWidth={1.4}
+          stroke="#d7a24a"
+          strokeWidth={3}
+          filter="url(#glow-gold)"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={drawVariant}
-          transition={{ duration: 1.1, delay: i * 0.15 }}
+          transition={{ duration: 1.5, delay: 3.2 }}
         />
-      ))}
-      {/* selected / optimal trajectory */}
-      <motion.path
-        d="M40,250 C120,215 150,130 210,110 S300,60 360,40"
-        fill="none"
-        stroke="#d7a24a"
-        strokeWidth={2.6}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={drawVariant}
-        transition={{ duration: 1.3, delay: 0.5 }}
-      />
-      <circle cx="40" cy="250" r="5" fill="#e7e9ec" />
-      <circle cx="360" cy="40" r="6" fill="#d7a24a" />
-      <text x="20" y="272" fontFamily="IBM Plex Mono" fontSize="10" fill="#767f8b">
-        observation
-      </text>
-      <text x="330" y="30" fontFamily="IBM Plex Mono" fontSize="10" fill="#d7a24a">
-        verified goal
-      </text>
-      <text x="150" y="292" fontFamily="IBM Plex Mono" fontSize="9.5" fill="#5a6068">
-        16 candidates → V-JEPA verification → optimal trajectory
-      </text>
+        {/* H_ver = 5 Discrete Rollout Steps along the optimal curve */}
+        {[
+          { cx: 215, cy: 153 },
+          { cx: 275, cy: 153 },
+          { cx: 335, cy: 147 },
+          { cx: 395, cy: 142 },
+          { cx: 460, cy: 145 },
+        ].map((pt, i) => (
+          <motion.circle
+            key={`step-${i}`}
+            cx={pt.cx}
+            cy={pt.cy}
+            r="3"
+            fill="#bg"
+            stroke="#d7a24a"
+            strokeWidth={1.5}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeVariant}
+            transition={{ duration: 0.3, delay: 3.5 + i * 0.2 }}
+          />
+        ))}
+      </g>
+
+      {/* TERMINAL UI & LABELS */}
+      <motion.g initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeVariant} transition={{ delay: 4.5 }}>
+        
+        {/* Top Left Header */}
+        <rect x="20" y="20" width="230" height="26" rx="3" fill="#1e2329" stroke="#3a4048" />
+        <text x="30" y="36" fontFamily="IBM Plex Mono" fontSize="15" fill="#5fb8b0" letterSpacing="1">
+          ROBOMIMIC · 7D ACTIONS
+        </text>
+
+        {/* Cost Function Math (Bottom Center) */}
+        <rect x="150" y="270" width="240" height="30" rx="4" fill="#000000" stroke="#d7a24a" strokeWidth={1} />
+        <text x="270" y="289" textAnchor="middle" fontFamily="IBM Plex Mono" fontSize="14" fill="#f2f4f6">
+          J(a) = || ẑ_&#123;t+5&#125; - z_goal ||₁
+        </text>
+
+        {/* Step Annotations */}
+        <text x="250" y="60" textAnchor="middle" fontFamily="IBM Plex Mono" fontSize="13" fill="#767f8b">
+          1. Flow Matching proposes N=16 trajectories
+        </text>
+        <text x="250" y="255" textAnchor="middle" fontFamily="IBM Plex Mono" fontSize="13" fill="#ef4444">
+          2. V-JEPA evaluates L1 Latent Cost
+        </text>
+
+      </motion.g>
     </svg>
   );
 }
@@ -129,41 +238,141 @@ function SceneGraphViz() {
 }
 
 function StochasticControlViz() {
+  const drawVariant = {
+    hidden: { pathLength: 0, opacity: 0 },
+    visible: { pathLength: 1, opacity: 1 },
+  };
+
+  const fadeVariant = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+  };
+
   return (
-    <svg viewBox="0 0 460 220" className="h-full w-full">
-      {/* uncertainty envelope */}
-      <motion.path
-        d="M20,140 C100,120 180,100 260,90 S380,60 440,50 L440,90 C380,100 260,130 180,140 S100,165 20,180 Z"
-        fill="#5fb8b01a"
-        stroke="none"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1 }}
+    <svg viewBox="0 0 540 320" className="h-full w-full" style={{ background: "transparent" }}>
+      <defs>
+        {/* Glow Filters */}
+        <filter id="glow-gold" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="4" result="blur" />
+          <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        </filter>
+        <filter id="glow-red" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="6" result="blur" />
+          <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        </filter>
+        {/* Danger Zone Gradient */}
+        <linearGradient id="cvar-grad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#ef4444" stopOpacity="0.3" />
+          <stop offset="100%" stopColor="#ef4444" stopOpacity="0.0" />
+        </linearGradient>
+      </defs>
+
+      {/* BACKGROUND GRID */}
+      <g stroke="#1c212a" strokeWidth={1}>
+        {[0, 40, 80, 120, 160, 200, 240, 280, 320].map((y) => (
+          <line key={`h-${y}`} x1="0" y1={y} x2="540" y2={y} />
+        ))}
+        {[0, 60, 120, 180, 240, 300, 360, 420, 480, 540].map((x) => (
+          <line key={`v-${x}`} x1={x} y1="0" x2={x} y2="320" />
+        ))}
+      </g>
+
+      {/* TIME DIVIDER (t = 0) */}
+      <motion.line
+        x1="180" y1="0" x2="180" y2="320"
+        stroke="#5a6068" strokeWidth={1.5} strokeDasharray="4 4"
+        initial="hidden" whileInView="visible" viewport={{ once: true }} variants={drawVariant} transition={{ duration: 1 }}
       />
-      {/* risk boundary (dashed) */}
-      <line x1="20" y1="180" x2="440" y2="95" stroke="#c17b6f" strokeWidth={1.3} strokeDasharray="4 5" />
-      <text x="360" y="88" fontFamily="IBM Plex Mono" fontSize="9.5" fill="#c17b6f">
-        CVaR risk boundary
-      </text>
-      {/* control horizon markers */}
-      {[120, 220, 320].map((x, i) => (
-        <line key={i} x1={x} y1="30" x2={x} y2="200" stroke="#242a32" strokeWidth={1} strokeDasharray="2 4" />
-      ))}
-      {/* nominal state trajectory */}
+      <motion.text x="170" y="30" textAnchor="end" fontFamily="IBM Plex Mono" fontSize="10" fill="#5a6068" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeVariant} transition={{ delay: 1 }}>
+        PAST (SENSOR DATA)
+      </motion.text>
+      <motion.text x="190" y="30" textAnchor="start" fontFamily="IBM Plex Mono" fontSize="10" fill="#d7a24a" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeVariant} transition={{ delay: 1 }}>
+        FUTURE (MPC HORIZON) →
+      </motion.text>
+
+      {/* 1. NOISY TIME-SERIES DATA (Raw Sensors / Market Data) */}
       <motion.path
-        d="M20,160 C100,140 180,120 260,110 S380,80 440,70"
-        fill="none"
-        stroke="#d7a24a"
-        strokeWidth={2.4}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={drawVariant}
+        d="M 0,160 L 15,120 L 30,190 L 45,140 L 60,170 L 75,130 L 90,180 L 105,150 L 120,175 L 135,145 L 150,165 L 165,155 L 180,160"
+        fill="none" stroke="#3a4048" strokeWidth={1.5}
+        initial="hidden" whileInView="visible" viewport={{ once: true }} variants={drawVariant} transition={{ duration: 1, delay: 0.2 }}
       />
-      <text x="20" y="205" fontFamily="IBM Plex Mono" fontSize="9.5" fill="#5a6068">
-        state estimate · uncertainty envelope · re-solved every horizon step
-      </text>
+      
+      {/* 2. STATE ESTIMATOR (Filtered state tracking) */}
+      <motion.path
+        d="M 0,155 C 50,155 100,165 180,160"
+        fill="none" stroke="#5fb8b0" strokeWidth={2.5}
+        initial="hidden" whileInView="visible" viewport={{ once: true }} variants={drawVariant} transition={{ duration: 1, delay: 0.8 }}
+      />
+      <motion.circle cx="180" cy="160" r="5" fill="#f2f4f6" stroke="#5fb8b0" strokeWidth={2} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeVariant} transition={{ delay: 1.8 }} />
+      <motion.text x="180" y="145" textAnchor="middle" fontFamily="IBM Plex Mono" fontSize="10" fill="#5fb8b0" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeVariant} transition={{ delay: 1.8 }}>
+        ESTIMATED STATE
+      </motion.text>
+
+      {/* 3. CVaR RISK BOUNDARY (Non-Stationary Threat/Obstacle) */}
+      <motion.g initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeVariant} transition={{ delay: 2 }}>
+        <path d="M 240,320 Q 320,180 540,170 L 540,320 Z" fill="url(#cvar-grad)" />
+        <path d="M 240,320 Q 320,180 540,170" fill="none" stroke="#ef4444" strokeWidth={2} strokeDasharray="6 4" filter="url(#glow-red)" />
+        <text x="530" y="190" textAnchor="end" fontFamily="IBM Plex Mono" fontSize="11" fill="#ef4444" fontWeight="bold">
+          CVaR TAIL-RISK BOUNDARY
+        </text>
+      </motion.g>
+
+      {/* 4. BASELINE TRAJECTORY (The dangerous projection before control) */}
+      <motion.path
+        d="M 180,160 C 260,160 340,210 540,240"
+        fill="none" stroke="#767f8b" strokeWidth={2} strokeDasharray="3 3"
+        initial="hidden" whileInView="visible" viewport={{ once: true }} variants={drawVariant} transition={{ duration: 1.5, delay: 2.5 }}
+      />
+      <motion.circle cx="350" cy="205" r="8" fill="none" stroke="#ef4444" strokeWidth={2} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeVariant} transition={{ delay: 3.5 }} />
+      <motion.text x="350" y="225" textAnchor="middle" fontFamily="IBM Plex Mono" fontSize="10" fill="#ef4444" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeVariant} transition={{ delay: 3.5 }}>
+        COLLISION / MARGIN CALL
+      </motion.text>
+
+      {/* 5. DYNAMIC REPLANNING (Stochastic MPC / Asset Rebalancing) */}
+      <g>
+        {/* Uncertainty Envelope for the safe path */}
+        <motion.path
+          d="M 180,160 C 260,130 380,80 540,70 L 540,110 C 380,120 260,170 180,160 Z"
+          fill="#d7a24a" opacity="0.15"
+          initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeVariant} transition={{ delay: 4.5 }}
+        />
+        {/* Optimal Safe Path */}
+        <motion.path
+          d="M 180,160 C 260,150 380,100 540,90"
+          fill="none" stroke="#d7a24a" strokeWidth={3} filter="url(#glow-gold)"
+          initial="hidden" whileInView="visible" viewport={{ once: true }} variants={drawVariant} transition={{ duration: 1.5, delay: 4.2 }}
+        />
+        {/* MPC Horizon Step Nodes */}
+        {[
+          { cx: 240, cy: 153 },
+          { cx: 300, cy: 140 },
+          { cx: 360, cy: 122 },
+          { cx: 420, cy: 107 },
+          { cx: 480, cy: 96 },
+        ].map((pt, i) => (
+          <motion.circle
+            key={`step-${i}`}
+            cx={pt.cx}
+            cy={pt.cy}
+            r="3.5"
+            fill="#12161a"
+            stroke="#d7a24a"
+            strokeWidth={1.5}
+            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeVariant} transition={{ duration: 0.3, delay: 4.5 + i * 0.15 }}
+          />
+        ))}
+      </g>
+
+      {/* TERMINAL UI & LABELS */}
+      <motion.g initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeVariant} transition={{ delay: 5.5 }}>
+        
+        {/* Top Right Header */}
+        <rect x="360" y="20" width="160" height="24" rx="3" fill="#1e2329" stroke="#d7a24a" strokeWidth={1} />
+        <text x="440" y="36" textAnchor="middle" fontFamily="IBM Plex Mono" fontSize="10" fill="#d7a24a" letterSpacing="1">
+          STOCHASTIC RE-PLAN
+        </text>
+
+      </motion.g>
     </svg>
   );
 }

@@ -42,6 +42,7 @@ export interface Project {
   result: string;
   repo: RepoLink;
   hasCaseStudy: boolean;
+  image?: string;
 }
 
 
@@ -53,7 +54,7 @@ export const flagshipProjects: Project[] = [
     slug: "flow-latent-mpc",
     title: "Flow-Latent MPC for Fast, Precise Robotic Manipulation",
     institution:
-      "Purdue — Summer Undergraduate Research Fellowship (SURF)",
+      "Purdue SURF Intern",
     advisor: "Prof. Aniket B",
     category: ["Robotics", "Robot Learning"],
     type: "Research",
@@ -79,7 +80,7 @@ export const flagshipProjects: Project[] = [
     slug: "llm-scene-planner",
     title: "LLM Planner over 3D Scene Graphs for Long-Horizon Manipulation",
     institution:
-      "National University of Singapore — Internships & Research Immersion @ Singapore",
+      "National University of Singapore IRIS Intern",
     advisor: "Prof. Guillaume A S",
     category: ["Robotics", "LLM/NLP"],
     type: "Research",
@@ -105,7 +106,7 @@ export const flagshipProjects: Project[] = [
     slug: "thesis-tail-risk",
     title:
       "Dynamic Tail-Risk Hedging & Stochastic Control for Non-Stationary Energy Systems",
-    institution: "IIT Madras — Master's Thesis (ongoing)",
+    institution: "IIT M Master's Thesis (ongoing)",
     advisor: "Prof. Raghunathan R",
     category: ["Control", "State Estimation", "Finance"],
     type: "Research",
@@ -208,7 +209,7 @@ export const flagshipProjects: Project[] = [
 
   {
     slug: "sindy-rls-cart-pendulum",
-    title: "SINDy-RLS — Data-Driven Discovery under Feedback Control",
+    title: "SINDy-RLS: Data-Driven Discovery under Feedback Control",
     institution: "IIT Madras",
     advisor: "Prof. Aniket K",
     category: ["State Estimation", "Control", "System Identification"],
@@ -235,7 +236,7 @@ export const flagshipProjects: Project[] = [
 
   {
     slug: "plutus-market-maker",
-    title: "Plutus — Algorithmic Market Maker for Binary Options",
+    title: "Plutus: Algorithmic Market Maker for Binary Options",
     institution: "Akuna Capital — 2026 Quantitative Trading Challenge",
     category: ["Finance", "Optimization"],
     type: "Personal",
@@ -261,7 +262,7 @@ export const flagshipProjects: Project[] = [
 
   {
     slug: "qualitycast-mlops",
-    title: "QualityCast-MLOps — Production-Grade Casting-Defect Detection",
+    title: "QualityCast-MLOps: Production-Grade Casting-Defect Detection",
     institution: "IIT Madras",
     advisor: "Prof. Sudarsan S",
     category: ["MLOps", "Computer Vision"],

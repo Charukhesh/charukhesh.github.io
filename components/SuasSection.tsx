@@ -21,29 +21,30 @@ export default function SuasSection() {
 
   return (
     <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-center">
+      
       {/* Slideshow */}
-      <div className="relative aspect-[5/4] w-full overflow-hidden rounded-4xl border border-border-soft bg-panel shadow-lg">
-        <AnimatePresence mode="wait"> 
+      <div className="relative aspect-[4/4] w-full overflow-hidden rounded-2xl border border-border-soft bg-panel shadow-lg">
+        <AnimatePresence>
           <motion.img
             key={index}
             src={images[index]}
             alt="SUAS IITM Team"
             className="absolute inset-0 h-full w-full object-cover"
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.8, ease: "easeInOut" }}
+            transition={{ duration: 1, ease: "easeInOut" }}
           />
         </AnimatePresence>
         
         {/* Slideshow Indicators */}
-        <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2 rounded-full bg-bg/50 px-3 py-1.5 backdrop-blur-md">
+        <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2 rounded-full bg-[#0a0a0a]/60 px-3 py-1.5 backdrop-blur-md">
           {images.map((_, i) => (
             <button
               key={i}
               onClick={() => setIndex(i)}
-              className={`h-1.5 rounded-full transition-all ${
-                i === index ? "w-4 bg-accent" : "w-1.5 bg-[#f2f4f6]/50 hover:bg-[#f2f4f6]"
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                i === index ? "w-4 bg-accent" : "w-1.5 bg-[#f2f4f6]/40 hover:bg-[#f2f4f6]"
               }`}
               aria-label={`Go to slide ${i + 1}`}
             />
@@ -51,64 +52,73 @@ export default function SuasSection() {
         </div>
       </div>
 
-      {/* Content */}
+      {/* Content & Bragging */}
       <div className="flex flex-col gap-6">
         <div>
-          <div className="mb-3 font-mono text-[13px] tracking-widest text-accent uppercase flex items-center gap-2">
-            <span className="relative flex h-2 w-2">
+          {/* Scaled tag to text-sm */}
+          <div className="mb-3 font-mono text-sm tracking-widest text-accent uppercase flex items-center gap-3">
+            <span className="relative flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent"></span>
             </span>
             IIT Madras · Founded Feb 2024
           </div>
-          <h3 className="font-display text-3xl font-semibold text-[#f2f4f6]">
+          <h3 className="font-display text-3xl font-semibold text-[#f2f4f6] sm:text-4xl">
             SUAS IITM (Aerial Robotics)
           </h3>
         </div>
 
-        <p className="text-ink-dim leading-relaxed text-[15px]">
+        {/* Scaled description to text-base and sm:text-lg */}
+        <p className="text-base sm:text-lg text-ink-dim leading-relaxed">
           In February 2024, I co-founded IIT Madras's first international aerial robotics team. We scaled from four founders to an internationally ranked autonomous aviation team in under a year, building full-stack UAVs designed to navigate, perceive, and deliver payloads in adversarial environments.
         </p>
 
-        <div className="rounded-xl border border-border-soft bg-panel p-5">
-          <div className="flex items-center justify-between mb-3">
-             <h4 className="font-mono text-sm text-[#f2f4f6]">SHADOW UAV (SUAS 2025)</h4>
-             <a href="https://www.suasiitm.com/" target="_blank" rel="noopener noreferrer" className="font-mono text-[10px] text-accent hover:underline">suasiitm.com ↗</a>
+        {/* 2025 Implementation & Stats */}
+        <div className="rounded-xl border border-border-soft bg-panel p-5 sm:p-6">
+          <div className="flex items-center justify-between mb-4">
+             <h4 className="font-mono text-base font-semibold text-[#f2f4f6]">SHADOW UAV (SUAS 2025)</h4>
+             <a href="https://www.suasiitm.com/" target="_blank" rel="noopener noreferrer" className="font-mono text-xs sm:text-sm text-accent hover:underline">suasiitm.com ↗</a>
           </div>
           
-          <p className="mb-5 text-[13.5px] text-ink-dim leading-relaxed">
-            Engineered a folding carbon-fiber X-quadcopter running a <strong className="text-slate-300 font-medium">ROS 1 autonomy stack</strong>. Integrated real-time aerial mapping, object detection, and a winch-based payload delivery mechanism. The architecture allowed the full system to be assembled from a transport case to flight-ready in under 2.5 minutes.
+          {/* Scaled inside card text to text-base */}
+          <p className="mb-6 text-base text-ink-dim leading-relaxed">
+            Engineered a folding carbon-fiber X-quadcopter running a <strong className="text-[#f2f4f6] font-medium">ROS 1 autonomy stack</strong>. Integrated real-time aerial mapping, object detection, and a winch-based payload delivery mechanism. The architecture allowed the full system to be assembled from a transport case to flight-ready in under 2.5 minutes.
           </p>
-          <div className="grid grid-cols-2 gap-y-4 gap-x-2 border-t border-border-soft pt-4 font-mono text-[11px] sm:text-[11.5px]">
+          
+          {/* Scaled grid stats up to text-sm */}
+          <div className="grid grid-cols-2 gap-y-6 gap-x-4 border-t border-border-soft pt-5 font-mono text-sm">
             <div>
-              <div className="text-accent mb-0.5">8th Globally</div>
+              <div className="text-accent mb-1">8th Globally</div>
               <div className="text-slate-500">Technical Design Report</div>
             </div>
             <div>
-              <div className="text-accent mb-0.5">23rd Overall</div>
-              <div className="text-slate-500">70+ Int'l Teams (Rookie Year)</div>
+              <div className="text-accent mb-1">23rd Overall</div>
+              <div className="text-slate-500">70+ Int'l Teams</div>
             </div>
             <div>
-              <div className="text-[#f2f4f6] mb-0.5">29:33 Flight</div>
+              <div className="text-[#f2f4f6] mb-1">29:33 Flight</div>
               <div className="text-slate-500">Flawless, Zero Crashes</div>
             </div>
             <div>
-              <div className="text-[#f2f4f6] mb-0.5">1st Attempt</div>
+              <div className="text-[#f2f4f6] mb-1">1st Attempt</div>
               <div className="text-slate-500">Safety Clearance Passed</div>
             </div>
           </div>
         </div>
 
-        <div className="rounded-xl border border-border-soft bg-panel p-5 relative overflow-hidden">
-          {/* Subtle glow effect for the "winning" vision */}
-          <div className="absolute top-0 right-0 -mr-16 -mt-16 h-32 w-32 rounded-full bg-accent opacity-[0.08] blur-2xl"></div>
+        {/* 2026 Future Outlook */}
+        <div className="rounded-xl border border-border-soft bg-panel p-5 sm:p-6 relative overflow-hidden group">
+          <div className="absolute top-0 right-0 -mr-16 -mt-16 h-32 w-32 rounded-full bg-accent opacity-0 blur-2xl transition-opacity duration-700 group-hover:opacity-10"></div>
           
-          <h4 className="mb-2 font-mono text-sm text-[#f2f4f6]">FALCON UAV (SUAS 2026)</h4>
-          <p className="text-[13.5px] text-ink-dim leading-relaxed">
-            Migrating to a robust <strong className="text-slate-300 font-medium">ROS 2 architecture</strong> for the upcoming Storm Response mission in Tulsa, Oklahoma. Armed with proof-of-flight-qualified hardware and the hard-earned lessons from our rookie year, we are aggressively optimizing our autonomy pipeline and are highly confident in our pursuit to win the 2026 championship.
+          <h4 className="mb-3 font-mono text-base font-semibold text-[#f2f4f6]">FALCON UAV (SUAS 2026)</h4>
+          
+          {/* Scaled inside card text to text-base */}
+          <p className="text-base text-ink-dim leading-relaxed">
+            Migrating to a robust <strong className="text-[#f2f4f6] font-medium">ROS 2 architecture</strong> for the upcoming Storm Response mission in Tulsa, Oklahoma. Armed with proof-of-flight-qualified hardware and the hard-earned lessons from our rookie year, we are aggressively optimizing our autonomy pipeline and are highly confident in our pursuit to win the 2026 championship.
           </p>
         </div>
       </div>
+
     </div>
   );
 }
