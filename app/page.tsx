@@ -10,8 +10,8 @@ export default function HomePage() {
       {/* HERO */}
       <section className="relative border-b border-border-soft px-6 pb-20 pt-44 sm:pt-48">
         <div className="absolute left-6 right-6 top-24 flex items-start justify-between sm:left-10 sm:right-10 xl:left-14 xl:right-14">
-          <img src="/Charukhesh_Portfolio/iitmlogo.png" alt="IIT Madras" className="animate-rise h-16 w-auto opacity-100 sm:h-40" style={{ animationDelay: "0.0s" }}/>
-          <img src="/Charukhesh_Portfolio/photo.jpeg" alt="Charukhesh B R" className="animate-rise h-20 w-20 rounded-full border-2 border-border-soft object-cover shadow-lg sm:h-40 sm:w-40" style={{ animationDelay: "0.05s" }}/>
+          <img src="/iitmlogo.png" alt="IIT Madras" className="animate-rise h-16 w-auto opacity-100 sm:h-40" style={{ animationDelay: "0.0s" }}/>
+          <img src="/photo.jpeg" alt="Charukhesh B R" className="animate-rise h-20 w-20 rounded-full border-2 border-border-soft object-cover shadow-lg sm:h-40 sm:w-40" style={{ animationDelay: "0.05s" }}/>
         </div>
 
         <div className="mx-auto max-w-wide">

@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://charukhesh.github.io/Charukhesh_Portfolio/sitemap.xml',
+    sitemap: 'https://charukhesh.github.io/sitemap.xml',
   }
 }

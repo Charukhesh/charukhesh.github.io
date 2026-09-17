@@ -2,7 +2,7 @@
 
 This is the source code for my personal portfolio, built for high performance, static deployment, and rich technical storytelling. It is designed to bridge the gap between academic research and software engineering.
 
-**Live Site:** [charukhesh.github.io/Charukhesh_Portfolio](https://charukhesh.github.io/Charukhesh_Portfolio/)
+**Live Site:** [charukhesh.github.io](https://charukhesh.github.io)
 
 ---
 
@@ -28,7 +28,7 @@ If you are cloning this from scratch to work on it on your local machine:
    ```bash
    npm run dev
    ```
-3. **View the site:** Open `http://localhost:3000/Charukhesh_Portfolio/` in your browser.
+3. **View the site:** Open `http://localhost:3000/` in your browser.
 
 > ⚠️ **IMPORTANT LOCALHOST NOTE:** Because this site is configured for GitHub Pages under the repository name `Charukhesh_Portfolio`, Next.js automatically applies a `basePath`. To view your site locally, you **must** go to `localhost:3000/Charukhesh_Portfolio/` (not just `localhost:3000`).
 

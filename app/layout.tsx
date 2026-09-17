@@ -6,7 +6,7 @@ import BackgroundFlow from "@/components/BackgroundFlow"; // 👈 Import the new
 import CanvasFlowField from "@/components/BackgroundFlow";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://charukhesh.github.io/Charukhesh_Portfolio"),
+  metadataBase: new URL("https://charukhesh.github.io"),
   title: "Charukhesh B R | AI / ML Research Engineer",
   description: "Portfolio of Charukhesh B R, AI/ML Research Engineer at IIT Madras. Specializing in Robotics, Stochastic Control, Generative Models, and Quantitative Systems.",
   keywords: [
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Charukhesh B R | AI / ML Research Engineer",
     description: "Building intelligent systems at the intersection of robotics, machine learning, and control.",
-    url: "https://charukhesh.github.io/Charukhesh_Portfolio/",
+    url: "https://charukhesh.github.io",
     siteName: "Charukhesh B R Portfolio",
     type: "website",
   },
