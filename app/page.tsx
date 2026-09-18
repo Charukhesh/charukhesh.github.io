@@ -17,6 +17,29 @@ export default function HomePage() {
         <div className="mx-auto max-w-wide">
           <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
             <div>
+              {/* 👉 THE NEW NEWS FLASH BANNER 👈 */}
+              <div className="animate-rise mb-6" style={{ animationDelay: "0.05s" }}>
+                <Link 
+                  href="/leadership" 
+                  className="group inline-flex items-center gap-3 rounded-full border border-accent/40 bg-accent/10 px-4 py-2 transition-all hover:border-accent hover:bg-accent/20"
+                >
+                  <span className="relative flex h-2 w-2 shrink-0">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75"></span>
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-accent"></span>
+                  </span>
+                  <span className="font-mono text-xs font-semibold uppercase tracking-wider text-accent">
+                    Latest
+                  </span>
+                  <span className="h-4 w-px shrink-0 bg-accent/30"></span>
+                  <span className="font-serif text-[13.5px] text-[#f2f4f6] sm:text-[14.5px]">
+                    Secured 1st Globally at SUAS 2026! 🏆
+                  </span>
+                  <span className="font-mono text-accent transition-transform group-hover:translate-x-1">
+                    →
+                  </span>
+                </Link>
+              </div>
+              
               <div className="animate-rise mb-4 font-mono text-[13px] tracking-widest text-accent sm:text-sm" style={{ animationDelay: "0.1s" }}>
                 ROBOTICS · MACHINE LEARNING · CONTROL · INTELLIGENT SYSTEMS
               </div>
