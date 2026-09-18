@@ -63,7 +63,7 @@ export const profile = {
   achievements: [
     "Secured 2nd runner-up nationwide in the 2024 James Dyson Challenge by building a 5-stage UV filtration bottle with kinetic charging.",
     "Developed and deployed drone-based Computer Vision systems for real-time reconnaissance missions with the Indian Army - J&K Rifles.",
-    "Co-founded IIT Madras' SUAS team and led autonomous systems development, ranking 8th out of 70 international teams in SUAS 2025.",
+    "Co-founded IIT Madras' SUAS team and led autonomous systems development, securing 1st Globally in Technical Design & Website at SUAS 2026 ($1,250 prize), following an 8th place overall finish out of 70 international teams in 2025.",
     "Ranked Top 2% (of 1500 teams) at the 2025 Caterpillar Tech Challenge for developing an ML-based PID gain tuning system.",
     "Selected for highly competitive international research internship programs: NUS IRIS (Top 1%) and Purdue SURF (Top 3%) globally."
   ],
